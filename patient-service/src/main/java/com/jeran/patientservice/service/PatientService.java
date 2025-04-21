@@ -1,5 +1,6 @@
 package com.jeran.patientservice.service;
 
+import com.jeran.patientservice.dto.PatientRequestDTO;
 import com.jeran.patientservice.dto.PatientResponseDto;
 import com.jeran.patientservice.mapper.PatientMapper;
 import com.jeran.patientservice.model.Patient;
@@ -23,4 +24,12 @@ public class PatientService {
                 .map(PatientMapper::toDto)
                 .toList();
     }
+
+
+    public PatientResponseDto createPatient(PatientRequestDTO patientRequestDTO) {
+        Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+
+        return PatientMapper.toDto(newPatient);
+    }
+
 }
