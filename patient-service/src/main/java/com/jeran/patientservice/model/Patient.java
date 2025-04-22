@@ -14,15 +14,22 @@ public class Patient {
     private UUID id;
 
     @NotNull
-    private String Name;
+    private String name;
 
-    public @NotNull String getName() {
-        return Name;
-    }
+    @NotNull
+    @Email
+    @Column(unique = true)
+    private String email;
 
-    public void setName(@NotNull String name) {
-        Name = name;
-    }
+    @NotNull
+    private String address;
+
+    @NotNull
+    private LocalDate dateOfBirth;
+
+    @NotNull
+    private LocalDate registerDate;
+
 
     public UUID getId() {
         return id;
@@ -32,49 +39,43 @@ public class Patient {
         this.id = id;
     }
 
-    public @NotNull @jakarta.validation.constraints.Email String getEmail() {
-        return Email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(@NotNull @jakarta.validation.constraints.Email String email) {
-        Email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public @NotNull String getAddress() {
-        return Address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(@NotNull String address) {
-        Address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public @NotNull LocalDate getDateOfBirth() {
-        return DateOfBirth;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public @NotNull LocalDate getRegisterDate() {
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public LocalDate getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(@NotNull LocalDate registerDate) {
+    public void setRegisterDate(LocalDate registerDate) {
         this.registerDate = registerDate;
     }
-
-    @NotNull
-    @Email
-    @Column(unique = true)
-    private String Email;
-
-    @NotNull
-    private String Address;
-
-    @NotNull
-    private LocalDate DateOfBirth;
-
-    @NotNull
-    private LocalDate registerDate;
 }

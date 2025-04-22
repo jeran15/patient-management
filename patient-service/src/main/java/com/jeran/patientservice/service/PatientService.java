@@ -2,6 +2,7 @@ package com.jeran.patientservice.service;
 
 import com.jeran.patientservice.dto.PatientRequestDTO;
 import com.jeran.patientservice.dto.PatientResponseDto;
+import com.jeran.patientservice.exception.EmailAlreadyExsitsException;
 import com.jeran.patientservice.mapper.PatientMapper;
 import com.jeran.patientservice.model.Patient;
 import com.jeran.patientservice.repository.PatientRepository;
@@ -27,8 +28,12 @@ public class PatientService {
 
 
     public PatientResponseDto createPatient(PatientRequestDTO patientRequestDTO) {
-        Patient newPatient = patientRepository.save(PatientMapper.toModel(patientRequestDTO));
+        if(patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+            throw new EmailAlreadyExsitsException("A patient with the email " + "already exsit" + patientRequestDTO.getEmail());
+        }
 
+        Patient newPatient = patientRepository.save(
+                PatientMapper.toModel(patientRequestDTO));
         return PatientMapper.toDto(newPatient);
     }
 
