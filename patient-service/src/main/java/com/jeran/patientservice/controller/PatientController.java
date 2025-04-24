@@ -2,9 +2,12 @@ package com.jeran.patientservice.controller;
 
 import com.jeran.patientservice.dto.PatientRequestDTO;
 import com.jeran.patientservice.dto.PatientResponseDto;
+import com.jeran.patientservice.dto.validation.CreatePatientValidationGroup;
 import com.jeran.patientservice.service.PatientService;
 import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +29,16 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<PatientResponseDto> createPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+    public ResponseEntity<PatientResponseDto> createPatient(
+            @Validated({Default.class, CreatePatientValidationGroup.class})
+            @RequestBody PatientRequestDTO patientRequestDTO) {
         PatientResponseDto patientResponseDto = patientService.createPatient(patientRequestDTO);
         return ResponseEntity.ok().body(patientResponseDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PatientResponseDto> updatePatient(@PathVariable UUID id,
-                                                            @RequestBody PatientRequestDTO patientRequestDTO) {
+                                                           @Validated({Default.class}) @RequestBody PatientRequestDTO patientRequestDTO) {
 
         PatientResponseDto patientResponseDto = patientService.updatePatient(id,patientRequestDTO);
 
