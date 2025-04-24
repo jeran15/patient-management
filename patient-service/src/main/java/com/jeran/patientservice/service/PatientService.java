@@ -7,7 +7,6 @@ import com.jeran.patientservice.exception.PatientNotFoundException;
 import com.jeran.patientservice.mapper.PatientMapper;
 import com.jeran.patientservice.model.Patient;
 import com.jeran.patientservice.repository.PatientRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -42,11 +41,10 @@ public class PatientService {
 
         Patient patient = patientRepository.findById(id).orElseThrow(
                 () -> new PatientNotFoundException("Patient not found with ID " + id));
-
-        if (patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+        
+        if (patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(),id)) {
             throw new EmailAlreadyExsitsException("A patient with the email " + "already exsit" + patientRequestDTO.getEmail());
         }
-
         patient.setName(patientRequestDTO.getName());
         patient.setAddress(patientRequestDTO.getAddress());
         patient.setEmail(patientRequestDTO.getEmail());

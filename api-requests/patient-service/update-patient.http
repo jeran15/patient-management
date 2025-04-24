@@ -3,7 +3,7 @@ PUT http://localhost:8080/patients/f9779333-08dc-44dd-b454-3eed3e31757f
 Content-Type: application/json
 
 {
-  "name": "Mark",
+  "name": "Petter",
   "email": "MarkJohn@gmail.com",
   "address": "08 Main street,Kollupitty",
   "dateOfBirth": "1997-02-26"
