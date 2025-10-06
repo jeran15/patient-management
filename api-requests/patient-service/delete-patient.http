@@ -1,4 +1,0 @@
-### Delete patient By Id
-DELETE http://localhost:8080/patients/f9779333-08dc-44dd-b454-3eed3e31757f
-
-###
